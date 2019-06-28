@@ -25,12 +25,16 @@ func test_sorting() {
 	fmt.Println(sorted0[:16], "...", sorted0[maxItems-16:])
 
 	sorted1, perf1 := BubbleSort(a)
-	fmt.Printf("Bubled sort of %d took %q:\n", len(a), perf1)
+	fmt.Printf("Bubble Sort of %d took %q:\n", len(a), perf1)
 	fmt.Println(sorted1[:16], "...", sorted1[maxItems-16:])
 
 	sorted2, perf2 := CocktailShaker(a)
 	fmt.Printf("Cocktail Shaker of %d took %q:\n", len(a), perf2)
 	fmt.Println(sorted2[:16], "...", sorted2[maxItems-16:])
+
+	sorted3, perf3 := InsertionSort(a)
+	fmt.Printf("Insertion Sort of %d took %q:\n", len(a), perf3)
+	fmt.Println(sorted3[:16], "...", sorted3[maxItems-16:])
 }
 
 func copyArray(in []int) []int {
@@ -90,16 +94,18 @@ func StdGoSort(input []int) ([]int, time.Duration) {
 	return input, time.Now().Sub(start)
 }
 
-/*
 func InsertionSort(input []int) ([]int, time.Duration) {
 	input = copyArray(input)
 	max := len(input)
 	start := time.Now()
 
 	//insertion sort
-	for x:= 0; x< max; x++ {
-
+	for i := 1; i < max; i++ {
+		j := i - 1
+		for j >= 0 && input[j] > input[j+1] {
+			input[j], input[j+1] = input[j+1], input[j]
+			j--
+		}
 	}
 	return input, time.Now().Sub(start)
 }
-*/
